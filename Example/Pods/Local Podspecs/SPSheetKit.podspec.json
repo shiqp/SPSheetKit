@@ -1,0 +1,22 @@
+{
+  "name": "SPSheetKit",
+  "version": "0.1.0",
+  "summary": "A short description of SPSheetKit.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/shiqp/SPSheetKit",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "shiqp": "qish@microsoft.com"
+  },
+  "source": {
+    "git": "https://github.com/shiqp/SPSheetKit.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "SPSheetKit/Classes/**/*"
+}

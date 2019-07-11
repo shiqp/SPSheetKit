@@ -1,0 +1,6 @@
+framework module SPSheetKit {
+  umbrella header "SPSheetKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
