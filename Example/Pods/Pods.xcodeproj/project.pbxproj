@@ -16,8 +16,12 @@
 		A52335B5007A0F736E70BF0A82F264B0 /* Pods-SPSheetKit_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8306B0EC4F4066F4F295040ECA471FF1 /* Pods-SPSheetKit_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB3621FAF7BCF449A1B1F017C193E93C /* Pods-SPSheetKit_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB951CEC0041A2896E1EAB1C8903BE /* Pods-SPSheetKit_Tests-dummy.m */; };
 		CED3A0B789E1C01440643ACA9ECA9E2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		DA18304C22D88A9900061314 /* SPSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA18304B22D88A9900061314 /* SPSheetPresentationController.swift */; };
+		DA18304E22D8A51800061314 /* SPSheetMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA18304D22D8A51800061314 /* SPSheetMenuItem.swift */; };
 		DA9D9D1622D7650F00CD34CD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DA9D9D1522D7650F00CD34CD /* .gitkeep */; };
-		DA9D9D1822D7652D00CD34CD /* SPSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D9D1722D7652D00CD34CD /* SPSheetController.swift */; };
+		DA9D9D1A22D844CD00CD34CD /* SPSheetColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D9D1922D844CD00CD34CD /* SPSheetColors.swift */; };
+		DA9D9D2522D8471100CD34CD /* SPSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D9D2322D8471100CD34CD /* SPSheetController.swift */; };
+		DA9D9D2822D84B6C00CD34CD /* SPSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D9D2722D84B6C00CD34CD /* SPSheetCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,9 +72,13 @@
 		BE3618A6F29BBB3105DB60A1144CC300 /* SPSheetKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SPSheetKit.xcconfig; sourceTree = "<group>"; };
 		D3E4D32550CBEA9449FB27E00D4BD68F /* Pods-SPSheetKit_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SPSheetKit_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		D6E94BEE3692940C9BA60856A5C2E9E1 /* Pods-SPSheetKit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SPSheetKit_Example-frameworks.sh"; sourceTree = "<group>"; };
+		DA18304B22D88A9900061314 /* SPSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetPresentationController.swift; sourceTree = "<group>"; };
+		DA18304D22D8A51800061314 /* SPSheetMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetMenuItem.swift; sourceTree = "<group>"; };
 		DA9D9D1522D7650F00CD34CD /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		DA9D9D1722D7652D00CD34CD /* SPSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetController.swift; sourceTree = "<group>"; };
-		F4A28FC5F5AC93DD0D407F89D8FFC852 /* SPSheetKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = SPSheetKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		DA9D9D1922D844CD00CD34CD /* SPSheetColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetColors.swift; sourceTree = "<group>"; };
+		DA9D9D2322D8471100CD34CD /* SPSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetController.swift; sourceTree = "<group>"; };
+		DA9D9D2722D84B6C00CD34CD /* SPSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetCell.swift; sourceTree = "<group>"; };
+		F4A28FC5F5AC93DD0D407F89D8FFC852 /* SPSheetKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = SPSheetKit.podspec; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +215,11 @@
 			isa = PBXGroup;
 			children = (
 				DA9D9D1522D7650F00CD34CD /* .gitkeep */,
-				DA9D9D1722D7652D00CD34CD /* SPSheetController.swift */,
+				DA9D9D1922D844CD00CD34CD /* SPSheetColors.swift */,
+				DA9D9D2322D8471100CD34CD /* SPSheetController.swift */,
+				DA9D9D2722D84B6C00CD34CD /* SPSheetCell.swift */,
+				DA18304B22D88A9900061314 /* SPSheetPresentationController.swift */,
+				DA18304D22D8A51800061314 /* SPSheetMenuItem.swift */,
 			);
 			name = Classes;
 			path = SPSheetKit/Classes;
@@ -331,6 +343,9 @@
 					2A5921D23E09804748ADA7987CF52CB7 = {
 						LastSwiftMigration = 1020;
 					};
+					E1B21B76AA0A2B9C6AB6353B55FACA4D = {
+						LastSwiftMigration = 1020;
+					};
 				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
@@ -398,7 +413,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA9D9D1822D7652D00CD34CD /* SPSheetController.swift in Sources */,
+				DA18304E22D8A51800061314 /* SPSheetMenuItem.swift in Sources */,
+				DA9D9D2822D84B6C00CD34CD /* SPSheetCell.swift in Sources */,
+				DA18304C22D88A9900061314 /* SPSheetPresentationController.swift in Sources */,
+				DA9D9D1A22D844CD00CD34CD /* SPSheetColors.swift in Sources */,
+				DA9D9D2522D8471100CD34CD /* SPSheetController.swift in Sources */,
 				70094DDF9AB7903419028EB164939468 /* SPSheetKit-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,6 +445,7 @@
 			baseConfigurationReference = 753B3E363C6B7125C37CC6B745B79AFD /* Pods-SPSheetKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -448,6 +468,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -682,6 +704,7 @@
 			baseConfigurationReference = 17D680E4DBA9E9CA227C1FCAFF2E6A6E /* Pods-SPSheetKit_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -704,6 +727,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
