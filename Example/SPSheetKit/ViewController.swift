@@ -19,8 +19,10 @@ class ViewController: UIViewController {
     @IBAction func showSheet(_ sender: UIButton) {
         let sheet = SPSheetController(presentationOrigin: -1, presentationDirection: .down)
 
-        let menuItem = SPSheetMenuItem(title: "Title", image: nil, action: #selector(onMenuItemTapped))
-        sheet.menuItems.append(menuItem)
+        let menuItem1 = SPSheetMenuItem(title: "Title1", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
+        let menuItem2 = SPSheetMenuItem(title: "Title2", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
+        sheet.menuItems.append(menuItem1)
+        sheet.menuItems.append(menuItem2)
 
         self.present(sheet, animated: true)
     }
