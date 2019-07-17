@@ -17,12 +17,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showSheet(_ sender: UIButton) {
-        let sheet = SPSheetController(presentationOrigin: -1, presentationDirection: .down)
+        let sheet = SPSheetController(sourceView: sender, sourceRect: sender.bounds, presentationOrigin: -1, presentationDirection: .down)
 
         let menuItem1 = SPSheetMenuItem(title: "Title1", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
-        let menuItem2 = SPSheetMenuItem(title: "Title2", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
+        let menuItem2 = SPSheetMenuItem(image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
+        let menuItem3 = SPSheetMenuItem(title: "Title3", action: #selector(onMenuItemTapped))
+        let menuItem4 = SPSheetMenuItem(title: "Title4", action: #selector(onMenuItemTapped))
         sheet.menuItems.append(menuItem1)
         sheet.menuItems.append(menuItem2)
+        sheet.menuItems.append(menuItem3)
+        sheet.menuItems.append(menuItem4)
 
         self.present(sheet, animated: true)
     }

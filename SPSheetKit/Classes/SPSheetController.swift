@@ -12,15 +12,48 @@ import UIKit
     case down
 }
 
-@objc public class SPSheetController: UITableViewController {
-    private var presentationOrigin: CGFloat
-    private var presentationDirection: SPSheetPresentationDirection
+@objc public class SPSheetController: UIViewController {
+    private struct Constants {
+        static let cellHeight: CGFloat = 44
+        static let preferredContentWidth: CGFloat = 300
+    }
 
     public var menuItems = [SPSheetMenuItem]()
 
-    public init(presentationOrigin: CGFloat = -1, presentationDirection: SPSheetPresentationDirection) {
+    private let presentationOrigin: CGFloat
+    private let presentationDirection: SPSheetPresentationDirection
+
+    private let sourceView: UIView?
+    private let sourceRect: CGRect?
+    private let barButtonItem: UIBarButtonItem?
+
+    private lazy var contentView: UICollectionView = {
+        let contentView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        contentView.register(SPSheetCell.self, forCellWithReuseIdentifier: SPSheetCell.identifier)
+        contentView.delegate = self
+        contentView.dataSource = self
+        contentView.backgroundColor = .clear
+        return contentView
+    }()
+
+    public init(sourceView: UIView, sourceRect: CGRect, presentationOrigin: CGFloat = -1, presentationDirection: SPSheetPresentationDirection) {
         self.presentationOrigin = presentationOrigin
         self.presentationDirection = presentationDirection
+        self.sourceView = sourceView
+        self.sourceRect = sourceRect
+        self.barButtonItem = nil
+        super.init(nibName: nil, bundle: nil)
+
+        self.modalPresentationStyle = .custom
+        self.transitioningDelegate = self
+    }
+
+    public init(barButtonItem: UIBarButtonItem, presentationOrigin: CGFloat = -1, presentationDirection: SPSheetPresentationDirection) {
+        self.presentationOrigin = presentationOrigin
+        self.presentationDirection = presentationDirection
+        self.sourceView = nil
+        self.sourceRect = nil
+        self.barButtonItem = barButtonItem
         super.init(nibName: nil, bundle: nil)
 
         self.modalPresentationStyle = .custom
@@ -34,8 +67,26 @@ import UIKit
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
-        self.tableView.register(SPSheetCell.self, forCellReuseIdentifier: SPSheetCell.identifier)
+        self.contentView.frame = self.view.bounds
+        self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.view.addSubview(self.contentView)
+
+        self.preferredContentSize = CGSize(width: Constants.preferredContentWidth,
+                                           height: CGFloat(self.menuItems.count) * Constants.cellHeight)
+    }
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.view.backgroundColor = SPSheetColors.background
+    }
+
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        if self.presentationController is SPSheetPresentationController {
+            self.dismiss(animated: false)
+        }
     }
 }
 
@@ -43,34 +94,61 @@ import UIKit
 
 extension SPSheetController: UIViewControllerTransitioningDelegate {
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return SPSheetPresentationController(presentedViewController: presented, presenting: presenting)
+        if source.traitCollection.horizontalSizeClass == .compact {
+            return SPSheetPresentationController(presentedViewController: presented, presenting: presenting)
+        }
+
+        let popoverPresentationController = UIPopoverPresentationController(presentedViewController: presented, presenting: presenting)
+        popoverPresentationController.backgroundColor = SPSheetColors.background
+        popoverPresentationController.delegate = self
+        popoverPresentationController.barButtonItem = self.barButtonItem
+        popoverPresentationController.sourceView = self.sourceView
+        if let sourceRect = self.sourceRect {
+            popoverPresentationController.sourceRect = sourceRect
+        }
+        return popoverPresentationController
     }
 }
 
-// MARK: - Table view delegate & data source
+// MARK: - UIPopoverPresentationControllerDelegate
 
-extension SPSheetController {
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension SPSheetController: UIPopoverPresentationControllerDelegate {
+    public func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+}
+
+// MARK: - Collection view delegate & data source
+
+extension SPSheetController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.menuItems.count
     }
 
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SPSheetCell.identifier, for: indexPath) as! SPSheetCell
-
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SPSheetCell.identifier, for: indexPath) as! SPSheetCell
         let menuItem = self.menuItems[indexPath.row]
-        cell.textLabel?.text = menuItem.title
-        cell.imageView?.image = menuItem.image
+
+        cell.titleLabel.text = menuItem.title
+        cell.imageView.image = menuItem.image
+        cell.setupSubviews()
+
+        if indexPath.row == self.menuItems.count - 1 {
+            cell.separator.isHidden = true
+        }
 
         return cell
     }
 
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.accessoryType = .checkmark
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.dismiss(animated: true)
     }
 
-    public override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.accessoryType = .none
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.view.bounds.width, height: Constants.cellHeight)
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
