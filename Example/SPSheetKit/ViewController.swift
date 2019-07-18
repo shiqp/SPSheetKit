@@ -18,9 +18,9 @@ class ViewController: UIViewController {
     @IBAction func showSheet(_ sender: UIButton) {
         let sheet = SPSheetController(sourceView: sender, sourceRect: sender.bounds, presentationOrigin: sender.frame.minY, presentationDirection: .up)
 
-        let menuItem1 = SPSheetMenuItem(title: "Title1", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
-        let menuItem2 = SPSheetMenuItem(title: "Title2", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
-        let menuItem3 = SPSheetMenuItem(title: "Title3", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
+        let menuItem1 = SPSheetMenuItem(title: "Title1", image: UIImage(named: "note"), target: self, action: #selector(onMenuItemTapped))
+        let menuItem2 = SPSheetMenuItem(title: "Title2", image: UIImage(named: "note"), target: self, action: #selector(onMenuItemTapped))
+        let menuItem3 = SPSheetMenuItem(title: "Title3", image: UIImage(named: "note"), target: self, action: #selector(onMenuItemTapped))
         sheet.menuItems.append(menuItem1)
         sheet.menuItems.append(menuItem2)
         sheet.menuItems.append(menuItem3)
@@ -31,9 +31,9 @@ class ViewController: UIViewController {
     @IBAction func showSheetDown(_ sender: UIButton) {
         let sheet = SPSheetController(sourceView: sender, sourceRect: sender.bounds, presentationOrigin: sender.frame.maxY, presentationDirection: .down)
 
-        let menuItem1 = SPSheetMenuItem(title: "Title1", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
-        let menuItem2 = SPSheetMenuItem(title: "Title2", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
-        let menuItem3 = SPSheetMenuItem(title: "Title3", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
+        let menuItem1 = SPSheetMenuItem(title: "Title1", image: UIImage(named: "note"), target: self, action: #selector(onMenuItemTapped))
+        let menuItem2 = SPSheetMenuItem(title: "Title2", image: UIImage(named: "note"), target: self, action: #selector(onMenuItemTapped))
+        let menuItem3 = SPSheetMenuItem(title: "Title3", image: UIImage(named: "note"), target: self, action: #selector(onMenuItemTapped))
         sheet.menuItems.append(menuItem1)
         sheet.menuItems.append(menuItem2)
         sheet.menuItems.append(menuItem3)
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     }
 
     @objc func onMenuItemTapped() {
-
+        print("Item tapped!")
     }
 
 }

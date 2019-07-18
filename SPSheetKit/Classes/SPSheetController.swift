@@ -207,6 +207,8 @@ extension SPSheetController: UICollectionViewDataSource, UICollectionViewDelegat
     }
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let menuItem = self.menuItems[indexPath.row]
+        _ = menuItem.target.perform(menuItem.action)
         self.dismiss(animated: true)
     }
 
