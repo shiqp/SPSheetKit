@@ -18,6 +18,7 @@
 		CED3A0B789E1C01440643ACA9ECA9E2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		DA18304C22D88A9900061314 /* SPSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA18304B22D88A9900061314 /* SPSheetPresentationController.swift */; };
 		DA18304E22D8A51800061314 /* SPSheetMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA18304D22D8A51800061314 /* SPSheetMenuItem.swift */; };
+		DA2282DC22E01A8700B23128 /* SPSheetAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2282DB22E01A8700B23128 /* SPSheetAnimator.swift */; };
 		DA9D9D1622D7650F00CD34CD /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = DA9D9D1522D7650F00CD34CD /* .gitkeep */; };
 		DA9D9D1A22D844CD00CD34CD /* SPSheetColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D9D1922D844CD00CD34CD /* SPSheetColors.swift */; };
 		DA9D9D2522D8471100CD34CD /* SPSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D9D2322D8471100CD34CD /* SPSheetController.swift */; };
@@ -74,6 +75,7 @@
 		D6E94BEE3692940C9BA60856A5C2E9E1 /* Pods-SPSheetKit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SPSheetKit_Example-frameworks.sh"; sourceTree = "<group>"; };
 		DA18304B22D88A9900061314 /* SPSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetPresentationController.swift; sourceTree = "<group>"; };
 		DA18304D22D8A51800061314 /* SPSheetMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetMenuItem.swift; sourceTree = "<group>"; };
+		DA2282DB22E01A8700B23128 /* SPSheetAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPSheetAnimator.swift; sourceTree = "<group>"; };
 		DA9D9D1522D7650F00CD34CD /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		DA9D9D1922D844CD00CD34CD /* SPSheetColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetColors.swift; sourceTree = "<group>"; };
 		DA9D9D2322D8471100CD34CD /* SPSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSheetController.swift; sourceTree = "<group>"; };
@@ -216,10 +218,11 @@
 			children = (
 				DA9D9D1522D7650F00CD34CD /* .gitkeep */,
 				DA9D9D1922D844CD00CD34CD /* SPSheetColors.swift */,
+				DA18304D22D8A51800061314 /* SPSheetMenuItem.swift */,
 				DA9D9D2322D8471100CD34CD /* SPSheetController.swift */,
 				DA9D9D2722D84B6C00CD34CD /* SPSheetCell.swift */,
 				DA18304B22D88A9900061314 /* SPSheetPresentationController.swift */,
-				DA18304D22D8A51800061314 /* SPSheetMenuItem.swift */,
+				DA2282DB22E01A8700B23128 /* SPSheetAnimator.swift */,
 			);
 			name = Classes;
 			path = SPSheetKit/Classes;
@@ -416,6 +419,7 @@
 				DA18304E22D8A51800061314 /* SPSheetMenuItem.swift in Sources */,
 				DA9D9D2822D84B6C00CD34CD /* SPSheetCell.swift in Sources */,
 				DA18304C22D88A9900061314 /* SPSheetPresentationController.swift in Sources */,
+				DA2282DC22E01A8700B23128 /* SPSheetAnimator.swift in Sources */,
 				DA9D9D1A22D844CD00CD34CD /* SPSheetColors.swift in Sources */,
 				DA9D9D2522D8471100CD34CD /* SPSheetController.swift in Sources */,
 				70094DDF9AB7903419028EB164939468 /* SPSheetKit-dummy.m in Sources */,
@@ -493,7 +497,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SPSheetKit/SPSheetKit-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SPSheetKit/SPSheetKit-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SPSheetKit/SPSheetKit.modulemap";
 				PRODUCT_MODULE_NAME = SPSheetKit;
@@ -560,7 +564,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SPSheetKit/SPSheetKit-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SPSheetKit/SPSheetKit-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SPSheetKit/SPSheetKit.modulemap";
 				PRODUCT_MODULE_NAME = SPSheetKit;

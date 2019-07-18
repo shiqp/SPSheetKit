@@ -16,6 +16,7 @@ import UIKit
     private struct Constants {
         static let cellHeight: CGFloat = 44
         static let preferredContentWidth: CGFloat = 300
+        static let cornerRadius: CGFloat = 14
     }
 
     public var menuItems = [SPSheetMenuItem]()
@@ -71,8 +72,14 @@ import UIKit
         self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.view.addSubview(self.contentView)
 
-        self.preferredContentSize = CGSize(width: Constants.preferredContentWidth,
-                                           height: CGFloat(self.menuItems.count) * Constants.cellHeight)
+        self.view.layer.masksToBounds = true
+        self.view.layer.cornerRadius = Constants.cornerRadius
+        switch self.presentationDirection {
+        case .down:
+            self.view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        default:
+            self.view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        }
     }
 
     public override func viewWillAppear(_ animated: Bool) {
@@ -93,11 +100,23 @@ import UIKit
 // MARK: - UIViewControllerTransitioningDelegate
 
 extension SPSheetController: UIViewControllerTransitioningDelegate {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return SPSheetAnimator(presenting: true, presentationDirection: self.presentationDirection)
+    }
+
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return SPSheetAnimator(presenting: false, presentationDirection: self.presentationDirection)
+    }
+
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         if source.traitCollection.horizontalSizeClass == .compact {
+            self.preferredContentSize = CGSize(width: self.view.bounds.width,
+                                               height: CGFloat(self.menuItems.count) * Constants.cellHeight + Constants.cornerRadius / 2)
             return SPSheetPresentationController(presentedViewController: presented, presenting: presenting)
         }
 
+        self.preferredContentSize = CGSize(width: Constants.preferredContentWidth,
+                                           height: CGFloat(self.menuItems.count) * Constants.cellHeight)
         let popoverPresentationController = UIPopoverPresentationController(presentedViewController: presented, presenting: presenting)
         popoverPresentationController.backgroundColor = SPSheetColors.background
         popoverPresentationController.delegate = self
