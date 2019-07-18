@@ -17,6 +17,15 @@ class SPSheetAnimator: NSObject {
         self.presentationDirection = presentationDirection
         super.init()
     }
+
+    func translationY(frame: CGRect) -> CGFloat {
+        switch presentationDirection {
+        case .down:
+            return -frame.height
+        default:
+            return frame.height
+        }
+    }
 }
 
 extension SPSheetAnimator: UIViewControllerAnimatedTransitioning {
@@ -30,7 +39,7 @@ extension SPSheetAnimator: UIViewControllerAnimatedTransitioning {
                 return
             }
 
-            toView.transform = CGAffineTransform(translationX: 0, y: -toView.frame.height)
+            toView.transform = CGAffineTransform(translationX: 0, y: self.translationY(frame: toView.frame))
             UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
                 toView.transform = CGAffineTransform.identity
             }) { _ in
@@ -41,7 +50,7 @@ extension SPSheetAnimator: UIViewControllerAnimatedTransitioning {
                 return
             }
             UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
-                fromView.transform = CGAffineTransform(translationX: 0, y: -fromView.frame.height)
+                fromView.transform = CGAffineTransform(translationX: 0, y: self.translationY(frame: fromView.frame))
             }) { _ in
                 transitionContext.completeTransition(true)
             }

@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showSheet(_ sender: UIButton) {
-        let sheet = SPSheetController(sourceView: sender, sourceRect: sender.bounds, presentationOrigin: -1, presentationDirection: .down)
+        let sheet = SPSheetController(sourceView: sender, sourceRect: sender.bounds, presentationOrigin: 650, presentationDirection: .up)
 
         let menuItem1 = SPSheetMenuItem(title: "Title1", image: UIImage(named: "note"), action: #selector(onMenuItemTapped))
         let menuItem2 = SPSheetMenuItem(image: UIImage(named: "note"), action: #selector(onMenuItemTapped))

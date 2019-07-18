@@ -111,8 +111,8 @@ extension SPSheetController: UIViewControllerTransitioningDelegate {
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         if source.traitCollection.horizontalSizeClass == .compact {
             self.preferredContentSize = CGSize(width: self.view.bounds.width,
-                                               height: CGFloat(self.menuItems.count) * Constants.cellHeight + Constants.cornerRadius / 2)
-            return SPSheetPresentationController(presentedViewController: presented, presenting: presenting)
+                                               height: CGFloat(self.menuItems.count) * Constants.cellHeight)
+            return SPSheetPresentationController(presentedViewController: presented, presenting: presenting, presentationOrigin: self.presentationOrigin)
         }
 
         self.preferredContentSize = CGSize(width: Constants.preferredContentWidth,

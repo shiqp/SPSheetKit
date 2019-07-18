@@ -8,12 +8,18 @@
 import UIKit
 
 class SPSheetPresentationController: UIPresentationController {
-    let dimmingView = UIView()
-    let contentView = UIView()
+    private let dimmingView = UIView()
+    private let contentView = UIView()
+    private let presentationOrigin: CGFloat
+
+    init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, presentationOrigin: CGFloat) {
+        self.presentationOrigin = presentationOrigin
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+    }
 
     override var frameOfPresentedViewInContainerView: CGRect {
         let size = self.presentedViewController.preferredContentSize
-        let origin = CGPoint(x: 0, y: 100)
+        let origin = CGPoint(x: 0, y: self.presentationOrigin)
         return CGRect(origin: origin, size: size)
     }
 
