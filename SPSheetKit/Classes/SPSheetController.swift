@@ -37,6 +37,36 @@ import UIKit
         return contentView
     }()
 
+    private lazy var dragSliderContainer: UIView = {
+        let dragSliderContainer = UIView()
+        dragSliderContainer.backgroundColor = .clear
+
+        let size = CGSize(width: 40, height: 4)
+        let dragSlider = UIView(frame: CGRect(origin: .zero, size: size))
+        dragSlider.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
+        dragSlider.center = dragSliderContainer.center
+        dragSlider.backgroundColor = SPSheetColors.dragSlider
+        dragSlider.layer.cornerRadius = 2
+        dragSliderContainer.addSubview(dragSlider)
+
+        return dragSliderContainer
+    }()
+
+    public override var preferredContentSize: CGSize {
+        get {
+            if presentationController is SPSheetPresentationController {
+                return CGSize(width: self.view.bounds.width,
+                              height: CGFloat(self.menuItems.count) * Constants.cellHeight + Constants.cornerRadius)
+            }
+
+            return CGSize(width: Constants.preferredContentWidth,
+                          height: CGFloat(self.menuItems.count) * Constants.cellHeight)
+        }
+        set {
+            super.preferredContentSize = newValue
+        }
+    }
+
     public init(sourceView: UIView, sourceRect: CGRect, presentationOrigin: CGFloat = -1, presentationDirection: SPSheetPresentationDirection) {
         self.presentationOrigin = presentationOrigin
         self.presentationDirection = presentationDirection
@@ -68,17 +98,38 @@ import UIKit
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.contentView.frame = self.view.bounds
-        self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.view.addSubview(self.contentView)
+        if presentationController is SPSheetPresentationController {
+            self.view.layer.masksToBounds = true
+            self.view.layer.cornerRadius = Constants.cornerRadius
 
-        self.view.layer.masksToBounds = true
-        self.view.layer.cornerRadius = Constants.cornerRadius
-        switch self.presentationDirection {
-        case .down:
-            self.view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        default:
-            self.view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            self.dragSliderContainer.translatesAutoresizingMaskIntoConstraints = false
+            self.contentView.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(self.dragSliderContainer)
+            self.view.addSubview(self.contentView)
+
+            self.dragSliderContainer.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+            self.dragSliderContainer.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+            self.dragSliderContainer.heightAnchor.constraint(equalToConstant: Constants.cornerRadius).isActive = true
+
+            self.contentView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+            self.contentView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+
+            switch self.presentationDirection {
+            case .down:
+                self.dragSliderContainer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+                self.contentView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+                self.contentView.bottomAnchor.constraint(equalTo: self.dragSliderContainer.topAnchor).isActive = true
+                self.view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+            default:
+                self.dragSliderContainer.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+                self.contentView.topAnchor.constraint(equalTo: self.dragSliderContainer.bottomAnchor).isActive = true
+                self.contentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+                self.view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            }
+        } else {
+            self.contentView.frame = self.view.bounds
+            self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.view.addSubview(self.contentView)
         }
     }
 
@@ -110,13 +161,9 @@ extension SPSheetController: UIViewControllerTransitioningDelegate {
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         if source.traitCollection.horizontalSizeClass == .compact {
-            self.preferredContentSize = CGSize(width: self.view.bounds.width,
-                                               height: CGFloat(self.menuItems.count) * Constants.cellHeight)
-            return SPSheetPresentationController(presentedViewController: presented, presenting: presenting, presentationOrigin: self.presentationOrigin)
+            return SPSheetPresentationController(presentedViewController: presented, presenting: presenting, presentationOrigin: self.presentationOrigin, presentationDirection: self.presentationDirection)
         }
 
-        self.preferredContentSize = CGSize(width: Constants.preferredContentWidth,
-                                           height: CGFloat(self.menuItems.count) * Constants.cellHeight)
         let popoverPresentationController = UIPopoverPresentationController(presentedViewController: presented, presenting: presenting)
         popoverPresentationController.backgroundColor = SPSheetColors.background
         popoverPresentationController.delegate = self

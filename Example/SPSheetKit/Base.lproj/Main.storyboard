@@ -19,20 +19,29 @@
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j2y-Df-SnM">
-                                <rect key="frame" x="146.5" y="318.5" width="82" height="30"/>
-                                <state key="normal" title="Show Sheet"/>
+                                <rect key="frame" x="134.5" y="557" width="106" height="30"/>
+                                <state key="normal" title="Show Sheet Up"/>
                                 <connections>
                                     <action selector="showSheet:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="m0a-Sy-poi"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6t-ab-HER">
+                                <rect key="frame" x="125" y="100" width="125" height="30"/>
+                                <state key="normal" title="Show Sheet Down"/>
+                                <connections>
+                                    <action selector="showSheetDown:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="oIQ-JC-A4k"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="j2y-Df-SnM" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="y8n-dD-VQA"/>
-                            <constraint firstItem="j2y-Df-SnM" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="zy4-EF-UOw"/>
+                            <constraint firstItem="j2y-Df-SnM" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="OfE-nQ-qvs"/>
+                            <constraint firstItem="R6t-ab-HER" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="80" id="cog-rE-o28"/>
+                            <constraint firstItem="R6t-ab-HER" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="p7g-A4-huP"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="j2y-Df-SnM" secondAttribute="bottom" constant="80" id="zrE-d3-ZLA"/>
                         </constraints>
                     </view>
                 </viewController>

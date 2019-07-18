@@ -8,7 +8,7 @@
 import UIKit
 
 class SPSheetAnimator: NSObject {
-    let duration = 0.3
+    let duration = 0.2
     let presenting: Bool
     let presentationDirection: SPSheetPresentationDirection
 
