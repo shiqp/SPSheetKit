@@ -8,6 +8,7 @@
 import UIKit
 
 class SPSheetPresentationController: UIPresentationController {
+    private let backgroundView = UIView()
     private let dimmingView = UIView()
     private let contentView = UIView()
     private let presentationOrigin: CGFloat
@@ -21,11 +22,13 @@ class SPSheetPresentationController: UIPresentationController {
 
     override var frameOfPresentedViewInContainerView: CGRect {
         let size = self.presentedViewController.preferredContentSize
-        let origin = self.presentationDirection == .down ? CGPoint(x: 0, y: self.presentationOrigin) : CGPoint(x: 0, y: self.presentationOrigin - size.height)
+        let originY = self.presentationDirection == .down ? self.presentationOrigin : self.presentationOrigin - size.height
+        let origin = CGPoint(x: 0, y: originY)
         return CGRect(origin: origin, size: size)
     }
 
     override func presentationTransitionWillBegin() {
+        self.setupBackgroundView()
         self.setupDimmingView()
         self.setupContentView()
         
@@ -50,19 +53,39 @@ class SPSheetPresentationController: UIPresentationController {
         })
     }
 
-    func setupDimmingView() {
+    func setupBackgroundView() {
         guard let containerView = self.containerView else {
             return
         }
 
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:)))
-        dimmingView.addGestureRecognizer(recognizer)
-        dimmingView.frame = containerView.bounds
+        backgroundView.addGestureRecognizer(recognizer)
+        backgroundView.frame = containerView.bounds
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundView.backgroundColor = .clear
+
+        containerView.addSubview(backgroundView)
+    }
+
+    func setupDimmingView() {
+        guard let containerView = self.containerView else {
+            return
+        }
+
+        dimmingView.isUserInteractionEnabled = false
         dimmingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         dimmingView.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
         dimmingView.alpha = 0.0
 
-        containerView.insertSubview(dimmingView, at: 0)
+        var margin = UIEdgeInsets.zero
+        switch self.presentationDirection {
+        case .down:
+            margin.top = self.presentationOrigin
+        default:
+            margin.bottom = containerView.bounds.height - self.presentationOrigin
+        }
+        dimmingView.frame = UIEdgeInsetsInsetRect(containerView.bounds, margin)
+        containerView.addSubview(dimmingView)
     }
 
     func setupContentView() {
